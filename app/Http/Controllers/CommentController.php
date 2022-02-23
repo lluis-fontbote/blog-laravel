@@ -35,7 +35,13 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Comment::create([
+            'text' => $request->text,
+            'post_id' => $request->post_id,
+            'author_id' => auth()->user()->id
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -78,8 +84,9 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request)
     {
-        //
+        Comment::destroy($request->comment_id);
+        return redirect()->back();
     }
 }

@@ -21,6 +21,15 @@ class UserSeeder extends Seeder
     {
         $faker = Factory::create('ca-ES');
 
+        User::create([
+            'name' => 'lluis',
+            'email' => 'lluis.fontbote@insbaixcamp.cat',
+            'email_verified_at' => now(),
+            'is_admin' => true,
+            'password' => Hash::make('12345678'),
+            'remember_token' => Str::random(10)
+        ]);
+
         for ($i = 0;  $i < 15;  $i++) {
             User::create([
                 'name' => $faker->name(),

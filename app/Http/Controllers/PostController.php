@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        return view('post.index', compact('posts'));
+        $featuredPost = Post::find(1);
+        $posts = Post::where('id', '!=', 1)->paginate(10);
+        return view('post.indexPlantilla', compact('posts', 'featuredPost'));
     }
 
     /**
@@ -45,9 +47,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return view('post.showPlantilla', compact('post'));
     }
 
     /**
@@ -58,7 +61,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        
     }
 
     /**

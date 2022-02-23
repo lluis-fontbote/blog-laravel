@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,9 +13,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        //
+        $categories = Category::getFromCache();
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -44,9 +47,15 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $featuredPost = Post::where('category_id', $id)->first();
+
+        $posts = Post::whereHas('category', function($q) use ($id) {
+            $q->where('id', $id)->where('id', '!=', 1);
+        })->paginate(10);
+
+        return view('post.indexPlantilla', compact('posts', 'featuredPost'));
     }
 
     /**

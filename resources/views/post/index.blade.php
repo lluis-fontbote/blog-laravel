@@ -24,7 +24,7 @@
 					</p>
 					<p class="text-xl md:text-2xl text-gray-500">Welcome to my Blog</p>
 			</div>
-		</div>
+	</div>
 		
 		<!--Container-->
 		<div class="container px-4 md:px-0 max-w-6xl mx-auto -mt-32">
@@ -41,7 +41,7 @@
 								<a class="inline-block py-2 px-2 text-white no-underline hover:underline" href="post.html">POST</a>
 								</li>
 								<li class="mr-2">
-								<a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:underline py-2 px-2" href="#">LINK</a>
+								<a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:underline py-2 px-2" href="{{ route('categoria.index') }}">CATEGORIES</a>
 								</li>
 								<li class="mr-2">
 								<a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:underline py-2 px-2" href="#">LINK</a>
@@ -69,18 +69,16 @@
 					
 				<!--Lead Card-->
 				<div class="flex h-full bg-white rounded overflow-hidden shadow-lg">
-					<a href="post.html" class="flex flex-wrap no-underline hover:no-underline">
+					<a href="{{ route('post.show', $featuredPost->id) }}" class="flex flex-wrap no-underline hover:no-underline">
 						<div class="w-full md:w-2/3 rounded-t">	
 							<img src="https://source.unsplash.com/collection/494263/800x600" class="h-full w-full shadow">
 						</div>
 
 						<div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
 							<div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-								<p class="w-full text-gray-600 text-xs md:text-sm pt-6 px-6">GETTING STARTED</p>
-								<div class="w-full font-bold text-xl text-gray-900 px-6">👋 Welcome fellow Tailwind CSS and Ghost fan</div>
-								<p class="text-gray-800 font-serif text-base px-6 mb-5">
-									This starter template is an attempt to replicate the default Ghost theme "Casper" using Tailwind CSS and vanilla Javascript.
-								</p>
+								<p class="w-full text-gray-600 text-xs md:text-sm pt-6 px-6">{{ $featuredPost->category->title}}</p>
+								<div class="w-full font-bold text-xl text-gray-900 px-6">{{ $featuredPost->title }}</div>
+								<p class="text-gray-800 font-serif text-base px-6 mb-5">{{ $featuredPost->content }}</p>
 							</div>
 
 							<div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
@@ -103,7 +101,7 @@
                         <!--1/3 col -->
                         <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
                             <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-                                <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+                                <a href="{{ route('post.show', $post->id) }}" class="flex flex-wrap no-underline hover:no-underline">
                                     <img src="https://source.unsplash.com/collection/225/800x600" class="h-64 w-full rounded-t pb-6">
                                     <p class="w-full text-gray-600 text-xs md:text-sm px-6">{{ $post->category->title}}</p>
                                     <div class="w-full font-bold text-xl text-gray-900 px-6">{{ $post->title }}</div>
@@ -120,7 +118,7 @@
                     @endforeach 
 				</div>
 				<!--/ Post Content-->
-						
+				{{ $posts->links() }}
 			</div>
 			
 			
